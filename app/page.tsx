@@ -1,57 +1,71 @@
+import Link from "next/link";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import { formatArticleDate, getAllArticles } from "@/lib/articles";
+
+const topics = ["Geopolitics", "Philosophy", "History", "Technology", "Society"];
+
 export default function Home() {
-  const topics = ["Geopolitics", "Philosophy", "History", "Technology", "Society"];
+  const articles = getAllArticles();
+  const [featured, ...recent] = articles;
 
   return (
-    <main className="min-h-screen bg-[#0B0F14] text-white overflow-hidden">
-      <nav className="sticky top-0 z-50 border-b border-white/10 backdrop-blur bg-black/40">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold tracking-wide">Dialectic Drift</h1>
-            <p className="text-xs text-gray-400">Ideas in Motion</p>
+    <main className="min-h-screen bg-[#0B0F14] text-white">
+      <Navbar />
+      <Hero />
+
+      {featured ? (
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <Link href={`/articles/${featured.slug}`} className="group block rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 transition hover:border-[#C9A227]/50 sm:p-10 lg:p-12">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.28em] text-[#C9A227]">Featured Essay</p>
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <h2 className="max-w-4xl text-3xl font-bold tracking-tight group-hover:text-[#C9A227] sm:text-5xl">{featured.title}</h2>
+                <p className="mt-5 max-w-3xl text-base leading-7 text-gray-300 sm:text-lg">{featured.excerpt}</p>
+              </div>
+              <p className="shrink-0 text-sm text-gray-400">{formatArticleDate(featured.date)} · {featured.readingTime}</p>
+            </div>
+          </Link>
+        </section>
+      ) : null}
+
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+        <div>
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <h2 className="text-3xl font-bold">Latest articles</h2>
+            <Link href="/articles" className="text-sm font-semibold text-[#C9A227] hover:text-[#e0bd4d]">View all</Link>
           </div>
-          <div className="hidden md:flex gap-8 text-sm text-gray-300">
-            <a href="/articles">Articles</a>
-            <a href="/topics/geopolitics">Topics</a>
-            <a href="/manifesto">Manifesto</a>
-            <a href="/about">About</a>
+          <div className="space-y-4">
+            {recent.slice(0, 3).map((article) => (
+              <Link key={article.slug} href={`/articles/${article.slug}`} className="block rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-[#C9A227]/40">
+                <p className="text-xs uppercase tracking-[0.22em] text-[#C9A227]">{article.category}</p>
+                <h3 className="mt-2 text-2xl font-semibold">{article.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-400">{article.excerpt}</p>
+              </Link>
+            ))}
           </div>
         </div>
-      </nav>
 
-      <section className="max-w-7xl mx-auto px-6 py-28 text-center">
-        <p className="uppercase tracking-[0.35em] text-[#C9A227] mb-6 text-sm">Independent Journal of Ideas</p>
-        <h2 className="text-5xl md:text-8xl font-bold mb-8 leading-tight">Question Narratives.<br />Understand Power.</h2>
-        <p className="max-w-3xl mx-auto text-lg md:text-xl text-gray-400 leading-relaxed">
-          Essays on geopolitics, philosophy, history, technology and the forces shaping the twenty-first century.
-        </p>
+        <aside className="rounded-3xl border border-[#C9A227]/25 bg-[#C9A227]/[0.06] p-6 sm:p-8">
+          <h2 className="text-2xl font-bold">Editorial compass</h2>
+          <p className="mt-4 leading-7 text-gray-300">We publish slowly, argue carefully, and treat every conclusion as provisional. The archive is built for readers who want context before certainty.</p>
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {topics.map((topic) => (
+              <div key={topic} className="rounded-xl border border-white/10 bg-black/20 p-4 text-center text-sm font-medium text-gray-200">{topic}</div>
+            ))}
+          </div>
+        </aside>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-12">
-          <p className="text-[#C9A227] uppercase tracking-widest text-sm mb-3">Featured Essay</p>
-          <h3 className="text-3xl md:text-5xl font-bold mb-4">The Architecture of Modern Power</h3>
-          <p className="text-gray-300 max-w-4xl leading-relaxed">From empires and nation-states to technology platforms and AI, power continuously evolves. Understanding those shifts is essential to understanding the future.</p>
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="rounded-[2rem] border border-white/10 p-8 text-center sm:p-12">
+          <h2 className="text-3xl font-bold">Stay in the Drift</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-gray-400">New essays, reading notes, and editorial dispatches for readers who prefer analysis over acceleration.</p>
+          <Link href="/articles" className="mt-8 inline-flex rounded-full bg-[#C9A227] px-7 py-3 font-semibold text-black transition hover:bg-[#e0bd4d]">Start reading</Link>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <h3 className="text-3xl font-bold mb-8">Topics</h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {topics.map((topic) => (<div key={topic} className="border border-white/10 rounded-xl p-6 text-center bg-white/5">{topic}</div>))}
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="rounded-3xl border border-[#C9A227]/30 p-10 text-center">
-          <h3 className="text-3xl font-bold mb-4">Stay in the Drift</h3>
-          <p className="text-gray-400 mb-6">Receive new essays and editorial notes directly in your inbox.</p>
-          <button className="px-8 py-4 bg-[#C9A227] text-black rounded-xl font-semibold">Join Newsletter</button>
-        </div>
-      </section>
-
-      <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm">
-        Dialectic Drift · Ideas in Motion
-      </footer>
+      <footer className="border-t border-white/10 px-4 py-8 text-center text-sm text-gray-500">Dialectic Drift · Ideas in Motion</footer>
     </main>
   );
 }
