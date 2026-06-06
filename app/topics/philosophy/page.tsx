@@ -1,1 +1,0 @@
-export default function PhilosophyPage(){return <main className="max-w-5xl mx-auto px-6 py-24 text-white"><h1 className="text-5xl font-bold mb-6">Philosophy</h1><p className="text-gray-400">Essays exploring ideas, ethics, meaning, knowledge, and civilization.</p></main>}

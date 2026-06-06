@@ -1,5 +1,18 @@
 import type { ReactNode } from "react";
 
+type MarkdownContentProps = {
+  content: string;
+};
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 function inlineMarkdown(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
 
@@ -25,7 +38,7 @@ function inlineMarkdown(text: string): ReactNode[] {
   });
 }
 
-export default function MarkdownContent({ content }: { content: string }) {
+export default function MarkdownContent({ content }: MarkdownContentProps) {
   const lines = content.split("\n");
   const nodes: ReactNode[] = [];
   let index = 0;
@@ -45,13 +58,23 @@ export default function MarkdownContent({ content }: { content: string }) {
     }
 
     if (line.startsWith("### ")) {
-      nodes.push(<h3 key={index}>{inlineMarkdown(line.slice(4))}</h3>);
+      const title = line.slice(4);
+      nodes.push(
+        <h3 id={slugify(title)} key={index}>
+          {inlineMarkdown(title)}
+        </h3>,
+      );
       index += 1;
       continue;
     }
 
     if (line.startsWith("## ")) {
-      nodes.push(<h2 key={index}>{inlineMarkdown(line.slice(3))}</h2>);
+      const title = line.slice(3);
+      nodes.push(
+        <h2 id={slugify(title)} key={index}>
+          {inlineMarkdown(title)}
+        </h2>,
+      );
       index += 1;
       continue;
     }
@@ -68,7 +91,13 @@ export default function MarkdownContent({ content }: { content: string }) {
         quoteLines.push(lines[index].trim().slice(2));
         index += 1;
       }
-      nodes.push(<blockquote key={index}>{quoteLines.map((quoteLine) => inlineMarkdown(quoteLine))}</blockquote>);
+      nodes.push(
+        <blockquote key={index}>
+          {quoteLines.map((quoteLine, quoteIndex) => (
+            <p key={`${quoteLine}-${quoteIndex}`}>{inlineMarkdown(quoteLine)}</p>
+          ))}
+        </blockquote>,
+      );
       continue;
     }
 
@@ -80,8 +109,8 @@ export default function MarkdownContent({ content }: { content: string }) {
       }
       nodes.push(
         <ul key={index}>
-          {listItems.map((item) => (
-            <li key={item}>{inlineMarkdown(item)}</li>
+          {listItems.map((item, itemIndex) => (
+            <li key={`${item}-${itemIndex}`}>{inlineMarkdown(item)}</li>
           ))}
         </ul>,
       );

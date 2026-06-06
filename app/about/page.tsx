@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import { getCanonicalUrl } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "About",
+  alternates: { canonical: getCanonicalUrl("/about") },
   description: "About Dialectic Drift, an independent publication for long-form analysis of power, history, philosophy, technology, and public life.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#0B0F14] text-white">
+    <main className="min-h-screen bg-[#0b0f14] text-white">
       <Navbar />
       <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#C9A227]">About the journal</p>
-        <h1 className="mt-4 text-5xl font-bold tracking-tight sm:text-7xl">Dialectic Drift is a publication for thinking in public.</h1>
+        <h1 className="mt-4 font-title text-5xl font-bold tracking-tight sm:text-7xl">Dialectic Drift is a publication for thinking in public.</h1>
         <div className="mt-10 space-y-8 text-lg leading-8 text-gray-300">
           <p>
             Dialectic Drift is an independent journal of ideas devoted to the slow work of interpretation. We publish essays on geopolitics, philosophy, history, technology, institutions, and the moral vocabulary of public life. The publication begins from a simple premise: the age of infinite information has not produced a comparable abundance of judgment.

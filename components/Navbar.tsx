@@ -3,14 +3,14 @@ import Link from "next/link";
 
 const navItems = [
   { href: "/articles", label: "Articles" },
-  { href: "/topics/geopolitics", label: "Topics" },
+  { href: "/topics", label: "Topics" },
   { href: "/manifesto", label: "Manifesto" },
   { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0F14]/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0b0f14]/85 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary navigation">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <span className="relative flex h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[#C9A227]/40 bg-black/40 shadow-[0_0_30px_rgba(201,162,39,0.18)]">
