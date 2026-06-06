@@ -20,19 +20,25 @@ export const metadata: Metadata = {
   description:
     "Independent Journal of Ideas exploring geopolitics, philosophy, history, technology, and power.",
   keywords: [
+    "Dialectic Drift",
     "Geopolitics",
     "Philosophy",
     "History",
     "Technology",
-    "Political Theory",
-    "Ideas",
-    "Dialectic Drift",
+    "Ideas in Motion"
   ],
   openGraph: {
     title: "Dialectic Drift",
     description:
       "Independent Journal of Ideas exploring geopolitics, philosophy, history, technology, and power.",
     type: "website",
+    siteName: "Dialectic Drift",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dialectic Drift",
+    description:
+      "Independent Journal of Ideas exploring geopolitics, philosophy, history, technology, and power.",
   },
 };
 
@@ -46,7 +52,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-[#0B0F14] text-white">{children}</body>
     </html>
   );
 }
