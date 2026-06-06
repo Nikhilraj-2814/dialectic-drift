@@ -1,1 +1,0 @@
-export default function HistoryPage(){return <main className="max-w-5xl mx-auto px-6 py-24 text-white"><h1 className="text-5xl font-bold mb-6">History</h1><p className="text-gray-400">Historical analysis, civilizational studies, and lessons from the past.</p></main>}

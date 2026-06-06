@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import { getCanonicalUrl } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "Manifesto",
+  alternates: { canonical: getCanonicalUrl("/manifesto") },
   description: "The Dialectic Drift manifesto: a case for slower thinking, better arguments, and historical consciousness in public life.",
 };
 
@@ -16,11 +18,11 @@ const principles = [
 
 export default function ManifestoPage() {
   return (
-    <main className="min-h-screen bg-[#0B0F14] text-white">
+    <main className="min-h-screen bg-[#0b0f14] text-white">
       <Navbar />
       <article className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#C9A227]">Manifesto</p>
-        <h1 className="mt-4 text-5xl font-bold tracking-tight sm:text-7xl">Against the poverty of instant certainty.</h1>
+        <h1 className="mt-4 font-title text-5xl font-bold tracking-tight sm:text-7xl">Against the poverty of instant certainty.</h1>
         <p className="mt-8 text-xl leading-9 text-gray-300">
           Dialectic Drift exists because public life is drowning in information and starving for interpretation. We live inside a permanent collision of claims: policy briefs, battlefield maps, market signals, algorithmic feeds, moral slogans, historical analogies, and institutional press releases. The problem is not that people lack access to facts. The problem is that facts arrive stripped of proportion, memory, and meaning.
         </p>
